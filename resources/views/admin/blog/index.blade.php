@@ -39,7 +39,7 @@
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Slug</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Image</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Content</th>
-                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">User</th>
+
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Status</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">Actions</th>
                 </tr>
@@ -54,9 +54,8 @@
                   <tr class="odd">
                     <td class="dtr-control sorting_1" tabindex="0"><?php echo $blog['title']; ?></td>
                     <td><?php echo $blog['slug']; ?></td>
-                    <td><?php echo $blog['img']; ?></td>
+                    <td><img style="height: 80px; width:100px" src="uploads/files/{{$blog['image']}}" alt="" srcset=""></td>
                     <td><?php echo $blog['content']; ?></td>
-                    <td><?php echo $blog['user_id']; ?></td>
                     <td><?php echo $blog['status']; ?></td>
                     <td>
                       <a href="{{route('blog.edit',$blog['id'])}}"><button type="button"class="btn btn-info">Edit</button></a>

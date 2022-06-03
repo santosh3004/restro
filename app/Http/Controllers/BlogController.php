@@ -39,9 +39,9 @@ class BlogController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Blog $request)
+    public function store(Request $request)
     {
-        return $request->all();
+
         $blog=new Blog;
         $blog->title=$request->title;
         $blog->content=$request->content;
@@ -105,7 +105,13 @@ class BlogController extends Controller
     public function destroy($blog)
     {
         $blog=Blog::find($blog);
+        if ($blog->trashed()) {
+            $blog->forceDelete();
+
+        }else{
         $blog->delete();
         return redirect()->route('blog.index');
+    }
+    return redirect()->route('blog.index');
     }
 }

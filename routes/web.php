@@ -29,7 +29,7 @@ Route::resource('filemanager','App\Http\Controllers\FileManagerController');
 Route::resource('slider','App\Http\Controllers\SliderController');
 Route::resource('blog','App\Http\Controllers\BlogController');
 Route::resource('contact','App\Http\Controllers\ContactController');
-Route::resource('comment','App\Http\Controllers\CommentController');
+Route::resource('comment','App\Http\Controllers\BlogCommentController');
 Route::resource('subscription','App\Http\Controllers\SubscriptionController');
 Route::resource('menucategory','App\Http\Controllers\MenuCategoryController');
 Route::resource('menuitem','App\Http\Controllers\MenuItemController');
