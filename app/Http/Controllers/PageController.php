@@ -14,7 +14,8 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
+        $pages = Page::where('deleted_at', null)->get();
+        return view('admin.page.index', compact('pages'));
     }
 
     /**
@@ -24,7 +25,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.page.create');
     }
 
     /**
@@ -35,7 +36,14 @@ class PageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $page = new Page;
+        $page->title = $request->title;
+        $page->content = $request->content;
+        $page->image= $request->image;
+        $page->order_no= $request->order_no;
+        $page->status= $request->status;
+        $page->save();
+        return redirect()->route('page.index')->with('message','Page created successfully');
     }
 
     /**
@@ -81,5 +89,16 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         //
+    }
+
+    public function binindex(){
+        $pages = Page::onlyTrashed()->get();
+        return view('admin.page.bin', compact('pages'));
+    }
+
+    public function restore($id){
+        $page = Page::withTrashed()->where('id', $id)->first();
+        $page->restore();
+        return redirect()->route('page.index')->with('message','Page restored successfully');
     }
 }

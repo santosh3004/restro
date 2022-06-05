@@ -28,11 +28,11 @@
                       <!-- radio -->
                       <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=1  name="radio1">
+                          <input class="form-check-input" type="radio" value=1 @if ($siteconfig->status==1){{'checked'}}@endif name="status">
                           <label class="form-check-label">Show</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=0  name="radio1">
+                          <input class="form-check-input" type="radio" value=0 @if ($siteconfig->status==0){{'checked'}}@endif name="status">
                           <label class="form-check-label">Hide</label>
                         </div>
                       </div>

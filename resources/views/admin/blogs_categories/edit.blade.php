@@ -7,7 +7,7 @@
         <div class="col-md-6">
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Edit Category</h3>
+                <h3 class="card-title">Edit Blog Category</h3>
               </div>
               <!-- /.card-header -->
               <!-- form start -->
@@ -28,11 +28,11 @@
                       <!-- radio -->
                       <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=1 name="radio1">
+                          <input class="form-check-input" type="radio" value=1 @if($category->status==1){{'checked'}}@endif name="status">
                           <label class="form-check-label">Show</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=0 name="radio1">
+                          <input class="form-check-input" type="radio" value=0 @if($category->status==0){{'checked'}}@endif name="status">
                           <label class="form-check-label">Hide</label>
                         </div>
                       </div>

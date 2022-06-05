@@ -8,12 +8,12 @@
           <div class="col-sm-6">
             <h1>Blogs</h1>
           </div>
-          <div class="col-sm-6">
-            <!-- <ol class="breadcrumb float-sm-right">
+          <!-- <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
               <li class="breadcrumb-item active">DataTables</li>
-            </ol> -->
-          </div>
+            </ol>
+          </div>-->
         </div>
       </div><!-- /.container-fluid -->
     </section>
@@ -25,8 +25,8 @@
 
               <div class="card-header d-flex justify-content-end">
               <div>
-              <a href="addblog.php"><button type="button"class="btn btn-primary">Add</button></a>
-              <a href="manageblogrecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+              <a href="{{route('blog.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
+              <a href="{{route('blog.bin')}}"><button type="button"class="btn btn-info">Recycle Bin</button></a>
               </div>
                 <!-- <h3 class="card-title">Categories</h3> -->
               </div>
@@ -37,6 +37,7 @@
                   <tr>
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Title</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Slug</th>
+                  <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Category</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Image</th>
                   <th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Content</th>
 
@@ -54,6 +55,8 @@
                   <tr class="odd">
                     <td class="dtr-control sorting_1" tabindex="0"><?php echo $blog['title']; ?></td>
                     <td><?php echo $blog['slug']; ?></td>
+                    <td>{{$blog->blog_category()->first()->title}}
+                    </td>
                     <td><img style="height: 80px; width:100px" src="uploads/files/{{$blog['image']}}" alt="" srcset=""></td>
                     <td><?php echo $blog['content']; ?></td>
                     <td><?php echo $blog['status']; ?></td>
@@ -73,7 +76,8 @@
                     @endif
                 </tbody>
 
-                <!-- </table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                 </table></div></div>
+                  <!--  <div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
               </div> -->
               <!-- /.card-body -->
             </div>
@@ -81,5 +85,6 @@
       </div>
       </div>
     </section>
-  </div>
+</div>
+</div>
 @endsection

@@ -7,12 +7,12 @@
           <div class="col-md-6">
     <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Add Category Form</h3>
+                  <h3 class="card-title">Add Menu Category Form</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
 
-                <form class="form-horizontal" method="POST" action="{{route('blogcategory.store')}}" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="{{route('menucategory.store')}}" enctype="multipart/form-data">
                     @csrf
                   <div class="card-body">
                   <div class="form-group row">
@@ -22,12 +22,17 @@
                       </div>
                     </div>
                     <div class="form-group row">
-
                       <label for="inputEmail3" class="col-sm-2 col-form-label">Slug</label>
                       <div class="col-sm-10">
                         <input type="text" name="slug" class="form-control" id="inputEmail3" placeholder="Slug Text">
                       </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="image" class="form-control" id="inputEmail3" placeholder="Image Link">
+                        </div>
+                      </div>
                     <div class="form-group row">
 
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Order Number</label>
@@ -38,7 +43,7 @@
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" name="submit" class="btn btn-info">Add Category</button>
+                    <button type="submit" name="submit" class="btn btn-info">Add Menu Category</button>
                   </div>
                   <!-- /.card-footer -->
                 </form>

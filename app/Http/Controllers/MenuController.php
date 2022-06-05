@@ -14,10 +14,10 @@ class MenuController extends Controller
      */
     public function index()
     {
-        $menu=new Menu;
-        $menu = $menu->get();
+        $menus=new Menu;
+        $menus = $menus->where('deleted_at',null)->get();
 
-        return view('admin.menu.index',compact('menu'));
+        return view('admin.menu.index',compact('menus'));
     }
 
     /**
@@ -84,16 +84,17 @@ class MenuController extends Controller
      */
     public function update(Request $request,$menu)
     {
-        $request->validate([
-            'title' => 'required',
-            'url' => 'required',
-            'order'=>'required',
+        // $request->validate([
+        //     'title' => 'required',
+        //     'url' => 'required',
+        //     'order'=>'required',
 
-        ]);
+        // ]);
         $menu=Menu::find($menu);
         $menu->title=$request->title;
         $menu->link=$request->url;
-        $menu->order_id=$request->order;
+        $menu->order_no=$request->order;
+        $menu->status=$request->status;
         $menu->save();
         return redirect()->route('menu.index');
     }
@@ -107,7 +108,26 @@ class MenuController extends Controller
     public function destroy($menu)
     {
         $menu=Menu::find($menu);
-        $menu->delete();
-        return redirect()->route('menu.index');
+        if($menu->trashed()){
+            $menu->forceDelete();
+        }else{
+            $menu->delete();
+        }
+
+        return redirect()->route('menu.index')->with('Message','Menu Deleted Successfully');
+    }
+
+    public function binindex()
+    {
+        $menus=new Menu;
+        $menus = $menus->onlyTrashed()->get();
+
+        return view('admin.menu.bin',compact('menus'));
+    }
+    public function restore($menu)
+    {
+        $menu=Menu::withTrashed()->find($menu);
+        $menu->restore();
+        return redirect()->route('menu.index')->with('Message','Menu Restored Successfully');
     }
 }

@@ -25,8 +25,8 @@
 
             <div class="card-header d-flex justify-content-end">
             <div>
-            <a href="addSlider.php"><button type="button"class="btn btn-primary">Add</button></a>
-            <a href="managesliderrecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+            <a href="{{route('slider.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
+            <a href="{{route('slider.bin')}}"><button type="button"class="btn btn-info">Recycle Bin</button></a>
             </div>
               <!-- <h3 class="card-title">DataTable with minimal features &amp; hover style</h3> -->
             </div>
@@ -53,14 +53,18 @@
 
                 <tr class="odd">
                   <td class="dtr-control sorting_1" tabindex="0"><?php echo $slider['title']; ?></td>
-                  <td><?php echo $slider['image']; ?></td>
+                  <td><img style="height: 80px; width:100px" src="uploads/files/{{$slider['image']}}" alt="Slider Image" srcset=""></td>
                   <td>{{$slider->btn_text}}</td>
                   <td>{{$slider->btn_link}}</td>
                   <td><?php echo $slider['order_no']; ?></td>
                   <td><?php echo $slider['status']; ?></td>
                   <td>
-                    <a href="editslider.php?id=<?php echo $slider['id']; ?>"><button type="button"class="btn btn-info">Edit</button></a>
-                    <a href="slidermanagement/softdelete.php?id=<?php echo $slider['id']; ?>"><button type="button" class="btn btn-danger">Delete</button></a>
+                    <a href="{{route('slider.edit',$slider->id)}}"><button type="button"class="btn btn-info">Edit</button></a>
+                    <form action="{{route('slider.destroy',$slider->id)}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('DELETE')
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                 </td>
                 </tr>@endforeach
                 @else

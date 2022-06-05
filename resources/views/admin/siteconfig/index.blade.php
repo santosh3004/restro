@@ -31,7 +31,7 @@
         <div class="card-header d-flex justify-content-end">
               <div>
               <a href="{{route('siteconfig.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
-              <a href="managesiteconfigrecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+              <a href="{{route('siteconfig.bin')}}"><button type="button"class="btn btn-info">Recycle Bin</button></a>
               </div>
                 <!-- <h3 class="card-title">DataTable with minimal features &amp; hover style</h3> -->
               </div>
@@ -73,7 +73,7 @@
             </tr>
             @endif
                   </tbody>
-                </tbody>
+
 
                 </table></div></div>
                 <!-- <div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="example2_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>

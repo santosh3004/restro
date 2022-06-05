@@ -15,8 +15,7 @@ class BlogCategoryController extends Controller
     public function index()
     {
         $category = new BlogCategory;
-        $category = $category->get();
-
+        $category = $category->where('deleted_at', null)->get();
         return view('admin.blogs_categories.index',compact('category'));
     }
 
@@ -88,6 +87,7 @@ class BlogCategoryController extends Controller
         $category = $category->where('id',$blogCategory)->first();
         $category->title = $request->title;
         $category->slug = $request->slug;
+        $category->status = $request->status;
         $category->update();
 
         return redirect()->route('blogcategory.index');
@@ -103,7 +103,25 @@ class BlogCategoryController extends Controller
     {
         $category=new BlogCategory;
         $category=$category->where('id',$blogCategory)->first();
-        $category->delete();
+        if ($category->deleted_at==null) {
+            $category->delete();
+        } else {
+            $category->forceDelete();
+        }
         return redirect()->route('blogcategory.index');
     }
+
+    public function binindex(){
+        $category = new BlogCategory;
+        $category = $category->onlyTrashed()->get();
+        return view('admin.blogs_categories.bin',compact('category'));
+    }
+
+    public function restore($blogCategory){
+        $category=new BlogCategory;
+        $category=$category->withTrashed()->where('id',$blogCategory)->first();
+        $category->restore();
+        return redirect()->route('blogcategory.index');
+    }
+
 }

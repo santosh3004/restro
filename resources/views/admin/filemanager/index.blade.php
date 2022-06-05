@@ -18,15 +18,19 @@
       </div><!-- /.container-fluid -->
     </section>
     <section class="content">
+        @if(Session::has('message'))
+            <div class="alert alert-success">
+                {{Session::get('message')}}
+            </div>
+            @endif
       <div class="container-fluid">
       <div class="row">
         <div class="col-12">
         <div class="card">
-
         <div class="card-header d-flex justify-content-end">
               <div>
               <a href="{{route('filemanager.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
-              <a href="managefilerecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+              <a href="{{route('filemanager.bin')}}"><button type="button"class="btn btn-info">Recycle Bin</button></a>
               </div>
                 <!-- <h3 class="card-title">DataTable with Files &amp; hover style</h3> -->
               </div>

@@ -23,21 +23,21 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputEmail1">Url</label>
-                    <input type="text" required value="{{$menu->url}}" name="url" class="form-control" id="exampleInputEmail1" placeholder="Enter Url">
+                    <input type="text" required value="{{$menu->link}}" name="url" class="form-control" id="exampleInputEmail1" placeholder="Enter Url">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputPassword1">Order</label>
-                    <input type="number" required value="{{$menu->order_id}}" name="order" class="form-control" id="exampleInputPassword1" placeholder="Enter Order">
+                    <input type="number" required value="{{$menu->order_no}}" name="order" class="form-control" id="exampleInputPassword1" placeholder="Enter Order">
                   </div>
                   <div class="col-sm-6">
                       <!-- radio -->
                       <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=1  name="radio1">
+                          <input class="form-check-input" type="radio" value=1 name="status" id="exampleRadios1" {{$menu->status == 1 ? 'checked' : ''}}>
                           <label class="form-check-label">Show</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=0  name="radio1">
+                          <input class="form-check-input" type="radio" value=0  name="status" id="exampleRadios2" {{$menu->status == 0 ? 'checked' : ''}}>
                           <label class="form-check-label">Hide</label>
                         </div>
                       </div>

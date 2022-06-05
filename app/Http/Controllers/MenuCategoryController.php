@@ -14,7 +14,8 @@ class MenuCategoryController extends Controller
      */
     public function index()
     {
-        //
+        $menucategories = MenuCategory::where('deleted_at', null)->get();
+        return view('admin.menu_category.index', compact('menucategories'));
     }
 
     /**
@@ -24,7 +25,7 @@ class MenuCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.menu_category.create');
     }
 
     /**
@@ -35,7 +36,13 @@ class MenuCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $menucategory=new MenuCategory();
+        $menucategory->title=$request->title;
+        $menucategory->slug=$request->slug;
+        $menucategory->image=$request->image;
+        $menucategory->order_no=$request->order_no;
+        $menucategory->save();
+        return redirect()->route('menucategory.index');
     }
 
     /**
@@ -44,7 +51,7 @@ class MenuCategoryController extends Controller
      * @param  \App\Models\MenuCategory  $menuCategory
      * @return \Illuminate\Http\Response
      */
-    public function show(MenuCategory $menuCategory)
+    public function show($menuCategoryId)
     {
         //
     }
@@ -55,9 +62,10 @@ class MenuCategoryController extends Controller
      * @param  \App\Models\MenuCategory  $menuCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(MenuCategory $menuCategory)
+    public function edit($menuCategoryId)
     {
-        //
+        $menucategory=MenuCategory::find($menuCategoryId);
+        return view('admin.menu_category.edit', compact('menucategory'));
     }
 
     /**
@@ -67,9 +75,18 @@ class MenuCategoryController extends Controller
      * @param  \App\Models\MenuCategory  $menuCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MenuCategory $menuCategory)
+    public function update(Request $request,$menuCategoryId)
     {
-        //
+        $menucategory=MenuCategory::find($menuCategoryId);
+        $menucategory->title=$request->title;
+        $menucategory->slug=$request->slug;
+        if($request->image!=null){
+            $menucategory->image=$request->image;
+        }
+        $menucategory->order_no=$request->order_no;
+        $menucategory->status=$request->status;
+        $menucategory->save();
+        return redirect()->route('menucategory.index')->with('message','Menu Category Updated Successfully');
     }
 
     /**
@@ -78,8 +95,25 @@ class MenuCategoryController extends Controller
      * @param  \App\Models\MenuCategory  $menuCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MenuCategory $menuCategory)
+    public function destroy($menuCategoryId)
     {
-        //
+        $menucategory=MenuCategory::find($menuCategoryId);
+        if($menucategory->trashed()){
+            $menucategory->forceDelete();
+        }else{
+        $menucategory->delete();
+        }
+        return redirect()->route('menucategory.index')->with('message','Menu Category Deleted Successfully');
+    }
+
+    public function binindex(){
+        $menucategories = MenuCategory::onlyTrashed()->get();
+        return view('admin.menu_category.bin', compact('menucategories'));
+    }
+
+    public function restore($menuCategoryId){
+        $menucategory=MenuCategory::withTrashed()->find($menuCategoryId);
+        $menucategory->restore();
+        return redirect()->route('menucategory.index')->with('message','Menu Category Restored Successfully');
     }
 }

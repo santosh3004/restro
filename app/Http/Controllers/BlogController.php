@@ -15,9 +15,9 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $blogs=new Blog;
-        $blogs=$blogs->get();
-        return view('admin.blog.index',compact('blogs'));
+        $blogs = new Blog;
+        $blogs = $blogs->where('deleted_at', null)->get();
+        return view('admin.blog.index', compact('blogs'));
     }
 
     /**
@@ -30,7 +30,7 @@ class BlogController extends Controller
         $blog_category = new BlogCategory;
         $blog_category = $blog_category->get();
 
-        return view('admin.blog.create',compact('blog_category'));
+        return view('admin.blog.create', compact('blog_category'));
     }
 
     /**
@@ -42,12 +42,12 @@ class BlogController extends Controller
     public function store(Request $request)
     {
 
-        $blog=new Blog;
-        $blog->title=$request->title;
-        $blog->content=$request->content;
-        $blog->image=$request->img;
-        $blog->slug=$request->slug;
-        $blog->blog_category_id=$request->category_id;
+        $blog = new Blog;
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+        $blog->image = $request->img;
+        $blog->slug = $request->slug;
+        $blog->blog_category_id = $request->category_id;
         $blog->save();
         return redirect()->route('blog.index');
     }
@@ -71,11 +71,10 @@ class BlogController extends Controller
      */
     public function edit($blog)
     {
-        $blog=Blog::find($blog)->first();
+        $blog = Blog::find($blog)->first();
         $blog_category = new BlogCategory;
         $blog_category = $blog_category->get();
-        return view('admin.blog.edit',compact('blog','blog_category'));
-
+        return view('admin.blog.edit', compact('blog', 'blog_category'));
     }
 
     /**
@@ -87,11 +86,13 @@ class BlogController extends Controller
      */
     public function update(Request $request, $blog)
     {
-        $blog=Blog::find($blog);
-        $blog->title=$request->title;
-        $blog->content=$request->content;
-        $blog->img=$request->img;
-        $blog->slug=$request->slug;
+        $blog = Blog::find($blog);
+        $blog->title = $request->title;
+        $blog->content = $request->content;
+        $blog->image = $request->img;
+        $blog->slug = $request->slug;
+        $blog->blog_category_id = $request->category_id;
+        $blog->status = $request->status;
         $blog->update();
         return redirect()->route('blog.index');
     }
@@ -104,14 +105,26 @@ class BlogController extends Controller
      */
     public function destroy($blog)
     {
-        $blog=Blog::find($blog);
+        $blog = Blog::find($blog);
         if ($blog->trashed()) {
             $blog->forceDelete();
-
-        }else{
-        $blog->delete();
-        return redirect()->route('blog.index');
+        } else {
+            $blog->delete();
+        }
+        return redirect()->route('blog.index')->with('message', 'Blog deleted successfully');
     }
-    return redirect()->route('blog.index');
+
+    public function binindex()
+    {
+        $blogs = new Blog;
+        $blogs = $blogs->onlyTrashed()->get();
+        return view('admin.blog.bin', compact('blogs'));
+    }
+
+    public function restore($blog)
+    {
+        $blog = Blog::withTrashed()->find($blog);
+        $blog->restore();
+        return redirect()->route('blog.index')->with('message', 'Blog restored successfully');
     }
 }

@@ -15,7 +15,7 @@ class SiteConfigController extends Controller
     public function index()
     {
         $siteConfig=new SiteConfig;
-        $siteConfig=$siteConfig->get();
+        $siteConfig=$siteConfig->where('deleted_at',Null)->get();
         return view('admin.siteconfig.index',compact('siteConfig'));
     }
 
@@ -81,12 +81,13 @@ class SiteConfigController extends Controller
     public function update(Request $request,$siteConfig)
     {
         $oldSiteConfig=SiteConfig::find($siteConfig);
-        $this->validate($request,[
-            'sitekey'=>'required|string',
-            'sitevalue'=>'required|string',
-        ]);
+        // $this->validate($request,[
+        //     'sitekey'=>'required|string',
+        //     'sitevalue'=>'required|string',
+        // ]);
         $oldSiteConfig->sitekey=$request->sitekey;
         $oldSiteConfig->sitevalue=$request->sitevalue;
+        $oldSiteConfig->status=$request->status;
         $oldSiteConfig->save();
         return redirect()->route('siteconfig.index')->with('message','Site Config Updated Successfully');
     }
@@ -97,10 +98,28 @@ class SiteConfigController extends Controller
      * @param  \App\Models\SiteConfig  $siteConfig
      * @return \Illuminate\Http\Response
      */
-    public function destroy($siteConfig)
+    public function destroy($siteConfigId)
     {
-        $siteConfig=SiteConfig::find($siteConfig);
-        $siteConfig->delete();
+        $siteConfig=SiteConfig::find($siteConfigId);
+        if ($siteConfig->trashed()) {
+            $siteConfig->forceDelete();
+        } else {
+            $siteConfig->delete();
+        }
         return redirect()->route('siteconfig.index')->with('success','Site Config Deleted Successfully');
+    }
+
+    public function binindex()
+    {
+        $siteConfig=new SiteConfig;
+        $siteConfig=$siteConfig->onlyTrashed()->get();
+        return view('admin.siteconfig.bin',compact('siteConfig'));
+    }
+
+    public function restore($siteConfig)
+    {
+        $siteConfig=SiteConfig::withTrashed()->find($siteConfig);
+        $siteConfig->restore();
+        return redirect()->route('siteconfig.bin')->with('success','Site Config Restored Successfully');
     }
 }

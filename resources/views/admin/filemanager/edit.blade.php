@@ -41,11 +41,11 @@
                       <!-- radio -->
                       <div class="form-group">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=1  name="radio1">
+                          <input class="form-check-input" type="radio" value=1 name="status" id="gridRadios1" {{$filemanager->status == 1 ? 'checked' : ''}}>
                           <label class="form-check-label">Show</label>
                         </div>
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" value=0  name="radio1">
+                          <input class="form-check-input" type="radio" value=0 name="status" id="gridRadios2" {{$filemanager->status == 0 ? 'checked' : ''}}>
                           <label class="form-check-label">Hide</label>
                         </div>
                       </div>

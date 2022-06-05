@@ -15,7 +15,7 @@ class SliderController extends Controller
     public function index()
     {
         $slider = new Slider;
-        $sliders = $slider->get();
+        $sliders = $slider->where('deleted_at',null)->get();
 
         return view('admin.slider.index',compact('sliders'));
     }
@@ -66,9 +66,10 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function edit(Slider $slider)
+    public function edit($sliderid)
     {
-        //
+        $slider = Slider::find($sliderid);
+        return view('admin.slider.edit',compact('slider'));
     }
 
     /**
@@ -78,9 +79,18 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request,$sliderid)
     {
-        //
+        $slider = Slider::find($sliderid);
+        $slider->title = $request->title;
+        $slider->subtitle= $request->subtitle;
+        $slider->btn_text= $request->btn_text;
+        $slider->btn_link= $request->btn_link;
+        $slider->order_no= $request->order_no;
+        $slider->image = $request->image;
+        $slider->status = $request->status;
+        $slider->save();
+        return redirect()->route('slider.index');
     }
 
     /**
@@ -89,8 +99,27 @@ class SliderController extends Controller
      * @param  \App\Models\Slider  $slider
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy($sliderId)
     {
-        //
+        $slider = Slider::find($sliderId);
+        if($slider->trashed()){
+            $slider->forceDelete();
+        }else{
+        $slider->delete();
+        }
+        return redirect()->route('slider.index');
+    }
+
+    public function binindex(){
+        $slider = new Slider;
+        $sliders = $slider->onlyTrashed()->get();
+
+        return view('admin.slider.bin',compact('sliders'));
+    }
+
+    public function restore($id){
+        $slider = Slider::withTrashed()->find($id);
+        $slider->restore();
+        return redirect()->route('slider.index');
     }
 }

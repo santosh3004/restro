@@ -25,7 +25,7 @@
                 <div class="card-header d-flex justify-content-end">
                 <div>
                 <a href="{{route('menu.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
-                <a href="managemenurecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+                <a href="{{route('menu.bin')}}"><button type="button"class="btn btn-info">Recycle BIn</button></a>
                 </div>
                   <!-- <h3 class="card-title">DataTable with minimal features &amp; hover style</h3> -->
                 </div>
@@ -43,15 +43,16 @@
                     </thead>
                     <tbody>
 
-                    @foreach ($menu as $users)
+                    @foreach ($menus as $menu)
                     <tr class="odd">
-                      <td class="dtr-control sorting_1" tabindex="0"><?php echo $users['title']; ?></td>
-                      <td>{{$users['link']}}</td>
-                      <td>{{$users['order_no']}}</td>
-                      <td>{{$users['status']}}</td>
+                      <td class="dtr-control sorting_1" tabindex="0"><?php echo $menu['title']; ?></td>
+                      <td>{{$menu['link']}}</td>
+                      <td>{{$menu['order_no']}}</td>
+                      <td>{{$menu['status']}}</td>
                       <td>
-                        <a href="{{route('menu.edit',$users['id'])}}"><button type="button"class="btn btn-info">Edit</button></a>
-                        <form method="POST" action="{{route('menu.destroy',$users['id'])}}">
+                        <a href="{{route('menu.edit',$menu['id'])}}"><button type="button"class="btn btn-info">Edit</button></a>
+
+                        <form method="POST" action="{{route('menu.destroy',$menu['id'])}}">
                             @method('DELETE')
                             @csrf
                         <button type="submit" class="btn btn-danger">Delete</button>

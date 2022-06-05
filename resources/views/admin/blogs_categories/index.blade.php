@@ -25,7 +25,7 @@
                 <div class="card-header d-flex justify-content-end">
                 <div>
                 <a href="{{route('blogcategory.create')}}"><button type="button"class="btn btn-primary">Add</button></a>
-                <a href="managecategoryrecycle.php"><button type="button"class="btn btn-info"><i class="fa-solid fa-recycle"></i></button></a>
+                <a href="{{route('blogcategory.bin')}}"><button type="button"class="btn btn-info">Recycle Bin</button></a>
                 </div>
                 </div>
                   <!-- <h3 class="card-title">Categories</h3> -->
@@ -55,6 +55,7 @@
                       <td>
 
                         <a href="{{route('blogcategory.edit',$blogcats->id)}}"><button type="button"class="btn btn-info">Edit</button></a>
+
                         <form action="{{route('blogcategory.destroy',$blogcats->id)}}" method="POST" enctype="multipart/form-data">
                             @method('DELETE')
                             @csrf

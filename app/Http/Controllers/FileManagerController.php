@@ -16,7 +16,7 @@ class FileManagerController extends Controller
     public function index()
     {
         $filemanager = new Filemanager;
-        $filemanager = $filemanager->get();
+        $filemanager = $filemanager->where('deleted_at', Null)->get();
         return view('admin.filemanager.index',compact('filemanager'));
     }
 
@@ -91,6 +91,7 @@ class FileManagerController extends Controller
         $filemanager = $filemanager->where('id',$fileManager)->first();
 
         $filemanager->title = $request->title;
+        $filemanager->status = $request->status;
 
         if ($request->file('file')!=null)
         {
@@ -128,11 +129,30 @@ class FileManagerController extends Controller
     {
         $filemanager = new Filemanager;
         $filemanager = $filemanager->where('id',$fileManager)->first();
-
+        if($filemanager->trashed()){
         $last_file = public_path().'/uploads/files/'.$filemanager->link;
         File::delete($last_file);
-        $filemanager->delete();
-
-        return redirect('filemanager');
+        $filemanager->forceDelete();
+        }
+        else{
+            $filemanager->delete();
+        }
+        return redirect()->route('filemanager.index')->with('message','File Deleted Successfully');
     }
+
+    public function binindex(){
+        $filemanager = new Filemanager;
+        $filemanager = $filemanager->onlyTrashed()->get();
+        return view('admin.filemanager.bin',compact('filemanager'));
+    }
+
+    public function restore($fileManager)
+    {
+        $filemanager = new Filemanager;
+        $filemanager = $filemanager->withTrashed()->where('id',$fileManager)->first();
+        $filemanager->restore();
+        return redirect()->route('filemanager.index')->with('message','File Restored Successfully');
+    }
+
+
 }

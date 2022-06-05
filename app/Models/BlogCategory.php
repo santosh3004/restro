@@ -10,4 +10,9 @@ class BlogCategory extends Model
 {
     use HasFactory;use SoftDeletes;
     protected $fillable = ['title', 'slug', 'order_no', 'status'];
+
+    public function category()
+    {
+        return $this->hasMany('App\Models\Blog','blog_category_id','id');
+    }
 }
