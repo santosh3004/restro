@@ -128,7 +128,7 @@ class FileManagerController extends Controller
     public function destroy($fileManager)
     {
         $filemanager = new Filemanager;
-        $filemanager = $filemanager->where('id',$fileManager)->first();
+        $filemanager = $filemanager->withTrashed()->where('id',$fileManager)->first();
         if($filemanager->trashed()){
         $last_file = public_path().'/uploads/files/'.$filemanager->link;
         File::delete($last_file);

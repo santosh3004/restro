@@ -105,7 +105,7 @@ class BlogController extends Controller
      */
     public function destroy($blog)
     {
-        $blog = Blog::find($blog);
+        $blog = Blog::withTrashed()->find($blog);
         if ($blog->trashed()) {
             $blog->forceDelete();
         } else {

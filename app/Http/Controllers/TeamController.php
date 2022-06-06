@@ -14,7 +14,8 @@ class TeamController extends Controller
      */
     public function index()
     {
-        //
+        $teams = Team::where('deleted_at', null)->get();
+        return view('admin.team.index', compact('teams'));
     }
 
     /**
@@ -24,7 +25,7 @@ class TeamController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.team.create');
     }
 
     /**
@@ -35,7 +36,16 @@ class TeamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $teammember = new Team;
+        $teammember->name = $request->name;
+        $teammember->position = $request->position;
+        $teammember->image = $request->image;
+        $teammember->fb_link = $request->fb_link;
+        $teammember->ins_link = $request->ins_link;
+        $teammember->twi_link = $request->twi_link;
+        $teammember->order_no = $request->order_no;
+        $teammember->save();
+        return redirect()->route('team.index')->with('success', 'Team Member Added Successfully');
     }
 
     /**
@@ -55,9 +65,10 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function edit(Team $team)
+    public function edit($teamId)
     {
-        //
+        $teammember = Team::find($teamId);
+        return view('admin.team.edit', compact('teammember'));
     }
 
     /**
@@ -67,9 +78,19 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Team $team)
+    public function update(Request $request, $teamId)
     {
-        //
+        $teammember = Team::find($teamId);
+        $teammember->name = $request->name;
+        $teammember->position = $request->position;
+        $teammember->image = $request->image;
+        $teammember->fb_link = $request->fb_link;
+        $teammember->ins_link = $request->ins_link;
+        $teammember->twi_link = $request->twi_link;
+        $teammember->order_no = $request->order_no;
+        $teammember->status = $request->status;
+        $teammember->save();
+        return redirect()->route('team.index')->with('message', 'Team Member Updated Successfully');
     }
 
     /**
@@ -78,8 +99,26 @@ class TeamController extends Controller
      * @param  \App\Models\Team  $team
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Team $team)
+    public function destroy($teamId)
     {
-        //
+        $teammember = Team::withTrashed()->find($teamId);
+        if ($teammember->trashed()) {
+            $teammember->forceDelete();
+        } else {
+            $teammember->delete();
+        }
+        return redirect()->route('team.index')->with('message', 'Team Member Deleted Successfully');
+    }
+
+    public function binindex()
+    {
+        $teams = Team::onlyTrashed()->get();
+        return view('admin.team.bin', compact('teams'));
+    }
+
+    public function restore($teamId){
+        $teammember = Team::withTrashed()->find($teamId);
+        $teammember->restore();
+        return redirect()->route('team.index')->with('message', 'Team Member Restored Successfully');
     }
 }

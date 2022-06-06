@@ -101,7 +101,7 @@ class SliderController extends Controller
      */
     public function destroy($sliderId)
     {
-        $slider = Slider::find($sliderId);
+        $slider = Slider::withTrashed()->find($sliderId);
         if($slider->trashed()){
             $slider->forceDelete();
         }else{

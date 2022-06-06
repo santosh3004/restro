@@ -11,7 +11,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+
               <li class="breadcrumb-item active">Edit User</li>
             </ol>
           </div><!-- /.col -->
@@ -26,10 +26,10 @@
         <div class="row">
             <div class="col-md-12">
                 <!-- general form elements -->
-                <div class="card card-primary">
+                {{-- <div class="card card-primary">
                   <div class="card-header">
                     <h3 class="card-title">Edit User</h3>
-                  </div>
+                  </div> --}}
                   <!-- /.card-header -->
                   <!-- form start -->
                   <form method="POST" action="{{route('user.update',$user->id)}}" enctype="multipart/form-data">
@@ -56,6 +56,21 @@
                         <input type="password" name="confirmpassword"  class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
                       </div>
                     </div>
+                    <!-- status radio button -->
+                    <div class="form-group">
+                      <label>Status</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="exampleRadios1" value="1" @if($user->status == 1) checked @endif>
+                        <label class="form-check-label" for="exampleRadios1">
+                          Active
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="radio" name="status" id="exampleRadios2" value="0" @if($user->status == 0) checked @endif>
+                        <label class="form-check-label" for="exampleRadios2">
+                          Inactive
+                        </label>
+                      </div>
                     <!-- /.card-body -->
 
                     <div class="card-footer">

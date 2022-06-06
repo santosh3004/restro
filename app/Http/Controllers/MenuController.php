@@ -107,7 +107,7 @@ class MenuController extends Controller
      */
     public function destroy($menu)
     {
-        $menu=Menu::find($menu);
+        $menu=Menu::withTrashed()->find($menu);
         if($menu->trashed()){
             $menu->forceDelete();
         }else{

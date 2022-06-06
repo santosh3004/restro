@@ -52,7 +52,7 @@
 <tr class="odd">
                       <td class="dtr-control sorting_1" tabindex="0">{{$menucategory['title']}}</td>
                       <td>{{$menucategory['slug']}}</td>
-                      <td><img src="{{asset('uploads/'.$menucategory['image'])}}" width="100px" height="100px"></td>
+                      <td><img src="{{asset('uploads/files/'.$menucategory->image)}}" width="100px" height="100px"></td>
                       <td>{{$menucategory['status']}}</td>
                       <td>
 

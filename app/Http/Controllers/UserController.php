@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $users=new User;
-        $users=$users->get();
+        $users=$users->where('deleted_at',null)->get();
         return view('admin.user.index',compact('users'));
 
     }
@@ -43,7 +43,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:6|required_with:password_confirmation|confirmed',
+            'password' => 'required|min:6|same:confirmpassword',
+            'confirmpassword' => 'required|min:6|same:password',
 
         ]);
         $user= new User;
@@ -90,7 +91,8 @@ class UserController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:6|same:confirmpassword',
+            'confirmpassword' => 'required|min:6|same:password',
 
         ]);
         $user=User::find($id);
@@ -109,6 +111,27 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        $user=User::withTrashed()->find($id);
+        if($user->trashed()){
+            $user->forceDelete();
+        }else{
+            $user->delete();
+        }
+        return redirect()->route('user.index')->with('message','User Deleted Successfully');
+    }
+
+    public function binindex()
+    {
+        $users=new User;
+        $users=$users->onlyTrashed()->get();
+        return view('admin.user.bin',compact('users'));
+    }
+
+    public function restore($id)
+    {
+        $user=User::withTrashed()->find($id);
+        $user->restore();
+        return redirect()->route('user.index')->with('message','User Restored Successfully');
     }
 }

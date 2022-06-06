@@ -48,10 +48,18 @@
                       </div>
                       <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
+
+                        @error('password')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
                         <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
                       </div>
                       <div class="form-group">
+
                         <label for="exampleInputPassword1">Confirm Password</label>
+                        @error('confirmpassword')
+                        <span class="text-danger">{{$message}}</span>
+                    @enderror
                         <input type="password" name="confirmpassword" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password">
                       </div>
                     </div>

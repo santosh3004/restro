@@ -100,7 +100,7 @@ class SiteConfigController extends Controller
      */
     public function destroy($siteConfigId)
     {
-        $siteConfig=SiteConfig::find($siteConfigId);
+        $siteConfig=SiteConfig::withTrashed()->find($siteConfigId);
         if ($siteConfig->trashed()) {
             $siteConfig->forceDelete();
         } else {

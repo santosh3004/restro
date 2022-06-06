@@ -7,27 +7,34 @@
           <div class="col-md-6">
     <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Add Category Form</h3>
+                  <h3 class="card-title">Add Team Member Form</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
 
-                <form class="form-horizontal" method="POST" action="{{route('blogcategory.store')}}" enctype="multipart/form-data">
+                <form class="form-horizontal" method="POST" action="{{route('team.store')}}" enctype="multipart/form-data">
                     @csrf
                   <div class="card-body">
                   <div class="form-group row">
-                      <label for="inputPassword3" class="col-sm-2 col-form-label">Title</label>
+                      <label for="inputPassword3" class="col-sm-2 col-form-label">Name</label>
                       <div class="col-sm-10">
-                        <input type="text" name="title" class="form-control" id="name" placeholder="Category Title">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Name">
                       </div>
                     </div>
                     <div class="form-group row">
 
-                      <label for="inputEmail3" class="col-sm-2 col-form-label">Slug</label>
+                      <label for="inputEmail3" class="col-sm-2 col-form-label">Position</label>
                       <div class="col-sm-10">
-                        <input type="text" name="slug" class="form-control" id="inputEmail3" placeholder="Slug Text">
+                        <input type="text" name="position" class="form-control" id="inputEmail3" placeholder="Position">
                       </div>
                     </div>
+                    <div class="form-group row">
+
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Image</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="image" class="form-control" id="inputEmail3" placeholder="Image Link">
+                        </div>
+                      </div>
                     <div class="form-group row">
 
                         <label for="inputEmail3" class="col-sm-2 col-form-label">Order Number</label>
@@ -35,10 +42,31 @@
                           <input type="number" name="order_no" class="form-control" id="inputEmail3" placeholder="Order Number">
                         </div>
                       </div>
+                    <div class="form-group row">
+
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Facebook</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="fb_link" class="form-control" id="inputEmail3" placeholder="Facebook Link">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+
+                        <label for="inputEmail3" class="col-sm-2 col-form-label">Instagram</label>
+                        <div class="col-sm-10">
+                          <input type="text" name="ins_link" class="form-control" id="inputEmail3" placeholder="Instagram Link">
+                        </div>
+                      </div>
+                        <div class="form-group row">
+
+                            <label for="inputEmail3" class="col-sm-2 col-form-label">Twitter</label>
+                            <div class="col-sm-10">
+                            <input type="text" name="twi_link" class="form-control" id="inputEmail3" placeholder="Twitter Link">
+                            </div>
+
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" name="submit" class="btn btn-info">Add Category</button>
+                    <button type="submit" name="submit" class="btn btn-info">Add Team Member</button>
                   </div>
                   <!-- /.card-footer -->
                 </form>

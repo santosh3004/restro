@@ -105,7 +105,7 @@ class MenuItemController extends Controller
      */
     public function destroy($menuItemId)
     {
-        $menuitem=MenuItem::find($menuItemId);
+        $menuitem=MenuItem::withTrashed()->find($menuItemId);
         if($menuitem->trashed()){
             $menuitem->forceDelete();
         }else{

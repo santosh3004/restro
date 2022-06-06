@@ -13,17 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('front.index');
+// });
+Route::get('/', 'App\Http\Controllers\front\FrontController@index')->name('front.index');
+
+Route::get('/restromenu', 'App\Http\Controllers\front\FrontController@menu')->name('front.menu');
+Route::get('restroreservation', 'App\Http\Controllers\front\FrontController@reservation')->name('front.reservation');
+
+Route::post('restroreserve', 'App\Http\Controllers\front\FrontController@reserve')->name('front.reserve');
+
+Route::get('/restrocontact', 'App\Http\Controllers\front\FrontController@contact')->name('front.contact');
+
+Route::get('/restroabout', 'App\Http\Controllers\front\FrontController@about')->name('front.about');
+
+Route::get('/restroblog', 'App\Http\Controllers\front\FrontController@blog')->name('front.blog');
+
+Route::get('/restroblog/{id}', 'App\Http\Controllers\front\FrontController@blog_detail')->name('front.blog_detail');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
 });
 
 Route::resource('user','App\Http\Controllers\UserController');
-Route::get('blogcategorybin','App\Http\Controllers\BlogCategoryController@binindex')->name('blogcategory.bin');
-Route::get('blogcategory/{id}/restore','App\Http\Controllers\BlogCategoryController@restore')->name('blogcategory.restore');
+Route::get('userbin','App\Http\Controllers\UserController@binindex')->name('user.bin');
+Route::get('user/{id}/restore','App\Http\Controllers\UserController@restore')->name('user.restore');
 
 Route::resource('blogcategory','App\Http\Controllers\BlogCategoryController');
 Route::get('blogcategorybin','App\Http\Controllers\BlogCategoryController@binindex')->name('blogcategory.bin');
@@ -67,6 +81,9 @@ Route::get('pagebin','App\Http\Controllers\PageController@binindex')->name('page
 Route::get('page/{id}/restore','App\Http\Controllers\PageController@restore')->name('page.restore');
 
 Route::resource('reservation','App\Http\Controllers\ReservationController');
+Route::get('reservationbin','App\Http\Controllers\ReservationController@binindex')->name('reservation.bin');
+Route::get('reservation/{id}/restore','App\Http\Controllers\ReservationController@restore')->name('reservation.restore');
+
 Route::resource('review','App\Http\Controllers\ReviewController');
 
 Route::resource('team','App\Http\Controllers\TeamController');

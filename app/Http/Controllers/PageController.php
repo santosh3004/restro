@@ -38,10 +38,10 @@ class PageController extends Controller
     {
         $page = new Page;
         $page->title = $request->title;
+        $page->slug = $request->slug;
         $page->content = $request->content;
         $page->image= $request->image;
         $page->order_no= $request->order_no;
-        $page->status= $request->status;
         $page->save();
         return redirect()->route('page.index')->with('message','Page created successfully');
     }
@@ -63,9 +63,10 @@ class PageController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit(Page $page)
+    public function edit($pageId)
     {
-        //
+        $page = Page::find($pageId);
+        return view('admin.page.edit', compact('page'));
     }
 
     /**
@@ -75,9 +76,19 @@ class PageController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Page $page)
+    public function update(Request $request,  $pageId)
     {
-        //
+        $page = Page::find($pageId);
+        $page->title = $request->title;
+        $page->slug= $request->slug;
+        $page->content = $request->content;
+        if($request->image!=null){
+            $page->image= $request->image;
+        }
+        $page->order_no= $request->order_no;
+        $page->status= $request->status;
+        $page->save();
+        return redirect()->route('page.index')->with('message','Page updated successfully');
     }
 
     /**
@@ -86,9 +97,15 @@ class PageController extends Controller
      * @param  \App\Models\Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Page $page)
+    public function destroy($pageId)
     {
-        //
+        $page = Page::withTrashed()->find($pageId);
+        if($page->trashed()){
+          $page->forceDelete();
+        }else{
+        $page->delete();
+        }
+        return redirect()->route('page.index')->with('message','Page deleted successfully');
     }
 
     public function binindex(){

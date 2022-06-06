@@ -71,16 +71,13 @@
                     </tr>
                         @endif
                   </tbody>
-
+                    </table></div></div></div>
                 <!-- /.card-body -->
               </div>
           </div>
         </div>
         </div>
           </div>
-          </div>
-        </div>
-        </div>
       </section>
     </div>
 @endsection

@@ -52,6 +52,12 @@
                   <td><?php echo $user['status']; ?></td>
                   <td>
                     <a href="{{route('user.edit',$user->id)}}"><button type="button"class="btn btn-info">Edit</button></a>
+                    {{--delete method from--}}
+                    <form action="{{route('user.destroy',$user->id)}}" method="POST">
+                      {{csrf_field()}}
+                      {{method_field('DELETE')}}
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
                     {{-- <button type="button" class="btn btn-danger">Delete</button> --}}
                 </td>
                 </tr>

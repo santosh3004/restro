@@ -102,7 +102,7 @@ class BlogCategoryController extends Controller
     public function destroy($blogCategory)
     {
         $category=new BlogCategory;
-        $category=$category->where('id',$blogCategory)->first();
+        $category=$category->withTrashed()->where('id',$blogCategory)->first();
         if ($category->deleted_at==null) {
             $category->delete();
         } else {

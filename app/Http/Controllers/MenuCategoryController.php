@@ -97,7 +97,7 @@ class MenuCategoryController extends Controller
      */
     public function destroy($menuCategoryId)
     {
-        $menucategory=MenuCategory::find($menuCategoryId);
+        $menucategory=MenuCategory::withTrashed()->find($menuCategoryId);
         if($menucategory->trashed()){
             $menucategory->forceDelete();
         }else{
