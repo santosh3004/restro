@@ -25,8 +25,9 @@
 							<div class="footer-widget newsletter-widget">
 								<h3>Newsletter</h3>
 								<p>Morbi in sem quis dui placerat ornare. Pellentesque odionisi euismod in pharetra</p>
-								<form class="subscribe-form">
-									<input type="text" name="email2" id="email2" placeholder="enter your email"/>
+								<form action="{{route('subscription.store')}}" method="POST" enctype="multipart/form-data" class="subscribe-form">
+                                    @csrf
+									<input type="email" name="email" id="email2" placeholder="enter your email"/>
 									<button type="submit" id="submit-subscribe-form">Subscribe</button>
 								</form>
 							</div>

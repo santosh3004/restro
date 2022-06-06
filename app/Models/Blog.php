@@ -16,4 +16,9 @@ class Blog extends Model
     {
         return $this->belongsTo('App\Models\BlogCategory','blog_category_id','id');
     }
+
+    public function blog_comments()
+    {
+        return $this->hasMany('App\Models\BlogComment','blog_id','id');
+    }
 }

@@ -179,13 +179,14 @@
 
 <!-- banner-section
     ================================================== -->
-<section class="banner-section2">
+<section class="banner-section2" style="background: #111 url({{asset('uploads/files/'.$reservation[0]->link)}}) center center no-repeat;
+    background-size: cover;">
     <div class="container">
         <div class="banner-box">
             <h2>Book a Table</h2>
             <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedolorm reminusto
                 doeiusmod tempor condorico consectetur adipiscing elitut aliquip.</h3>
-            <a href="reservation.html" class="button-two">Reservation</a>
+            <a href="{{route('front.reservation')}}" class="button-two">Reservation</a>
         </div>
     </div>
 </section>

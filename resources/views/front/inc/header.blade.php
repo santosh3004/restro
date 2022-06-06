@@ -46,7 +46,7 @@
                             </li>
 							<li class="drop-link"><a href="{{route('front.blog')}}">Blogs</a>
 							</li>
-							<li class="drop-link"><a href="{{route('front.contact')}}">Contact</a>
+							<li class="drop-link"><a href="{{route('contact.index')}}">Contact</a>
 							</li>
 						</ul>
 					</div>

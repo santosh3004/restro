@@ -9,4 +9,9 @@ class BlogComment extends Model
 {
     use HasFactory;use SoftDeletes;
     protected $fillable = ['blog_id', 'name', 'email', 'comment', 'status'];
+
+    public function blog()
+    {
+        return $this->belongsTo('App\Models\Blog','blog_id','id');
+    }
 }

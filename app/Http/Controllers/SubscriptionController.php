@@ -35,7 +35,10 @@ class SubscriptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $subscription = new Subscription();
+        $subscription->email = $request->email;
+        $subscription->save();
+        return redirect()->back()->with('message', 'Your subscription has been sent successfully.');
     }
 
     /**

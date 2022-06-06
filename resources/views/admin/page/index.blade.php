@@ -85,7 +85,7 @@
                                                             <td class="dtr-control sorting_1" tabindex="0">
                                                                 {{ $page['title'] }}</td>
                                                             <td>{{ $page['slug'] }}</td>
-                                                            <td><img src="{{ asset('uploads/' . $page['image']) }}" alt="Page Image">
+                                                            <td><img src="{{ asset('uploads/files/' . $page['image']) }}" alt="Page Image">
                                                             </td>
                                                             <td>{{ $page['content'] }}</td>
                                                             <td>{{ $page['order_no'] }}</td>

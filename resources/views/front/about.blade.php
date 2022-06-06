@@ -18,8 +18,8 @@
             <!-- page-ban-list -->
             <div class="container">
                 <ul class="page-ban-list">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="{{route('front.index')}}">Home</a></li>
+                    <li><a href="{{route('front.about')}}">About Us</a></li>
                 </ul>
             </div>
             <!-- end page-ban-list -->
@@ -28,23 +28,21 @@
                 ================================================== -->
             <section class="about-section">
                 <div class="container">
+                    @foreach ($pages as $page)
+
+
                     <div class="about-box">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="image-holder">
-                                    <img src="upload/others/ab4.png" alt="">
+                                    <img src="{{asset('uploads/files/'.$page->image)}}" alt="">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="content-holder">
-                                    <h2>Our History</h2>
-                                    <span>Discover Our Story</span>
-                                    <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue.
-                                        Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.
-                                        Praesent elementum hendrerit tortor.
-                                    </p>
-                                    <p>Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.
-                                        Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.
+                                    <h2>{{$page->title}}</h2>
+                                    <span>{{$page->slug}}</span>
+                                    <p>{{$page->content}}</p>
                                     </p>
                                     <img src="upload/others/chef.jpg" alt="">
                                     <img src="images/signature.png" alt="">
@@ -52,29 +50,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="about-box">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="content-holder">
-                                    <h2>Who We Are</h2>
-                                    <span>Welcome to Koad</span>
-                                    <p>Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.
-                                        Praesent elementum hendrerit tortor. Sed semper lorem at felis. Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu,
-                                        fermentum et, dapibus sed, urna.
-                                    </p>
-                                    <p>
-                                        Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet,
-                                        lectus arcu pulvinar risus, vitae facilisis libero dolor a purus.
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="image-holder">
-                                    <img src="upload/others/ab5.png" alt="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                     <div class="statistic-box">
                         <div class="row">
                             <div class="col-lg-3 col-md-6">
@@ -117,42 +93,23 @@
                     </div>
                     <div class="team-box">
                         <div class="row">
+                            @foreach ($teams as $team)
+
+
                             <div class="col-md-4">
                                 <div class="team-post">
-                                    <img src="upload/others/team1.jpg" alt="">
-                                    <h3>Corben Naylor</h3>
-                                    <span>Chef</span>
+                                    <img src="{{asset('uploads/files/'.$team->image)}}" alt="">
+                                    <h3>{{$team->name}}</h3>
+                                    <span>{{$team->position}}</span>
                                     <ul class="social-team">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                        <li><a target="_blank" href="{{$team->fb_link}}"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a target="_blank" href="{{$team->ins_link}}"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a target="_blank" href="{{$team->twi_link}}"><i class="fa fa-instagram"></i></a></li>
                                     </ul>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="team-post">
-                                    <img src="upload/others/team2.jpg" alt="">
-                                    <h3>Jozefo Teodora</h3>
-                                    <span>Chef</span>
-                                    <ul class="social-team">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="team-post">
-                                    <img src="upload/others/team3.jpg" alt="">
-                                    <h3>Raya Leach</h3>
-                                    <span>Chef</span>
-                                    <ul class="social-team">
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
+
+                            @endforeach
                         </div>
                     </div>
                 </div>

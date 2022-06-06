@@ -54,7 +54,7 @@
 <tr class="odd">
                       <td class="dtr-control sorting_1" tabindex="0">{{$team['name']}}</td>
                       <td>{{$team['position']}}</td>
-                        <td><img src="{{asset('uploads/'.$team['image'])}}" alt="Member Image"></td>
+                        <td><img src="{{asset('uploads/files/'.$team['image'])}}" alt="Member Image"></td>
                         <td>{{$team['order_no']}}</td>
                         <td>{{$team['fb_link']}}</td>
                         <td>{{$team['ins_link']}}</td>

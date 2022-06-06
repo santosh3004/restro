@@ -23,13 +23,18 @@ Route::get('restroreservation', 'App\Http\Controllers\front\FrontController@rese
 
 Route::post('restroreserve', 'App\Http\Controllers\front\FrontController@reserve')->name('front.reserve');
 
-Route::get('/restrocontact', 'App\Http\Controllers\front\FrontController@contact')->name('front.contact');
-
 Route::get('/restroabout', 'App\Http\Controllers\front\FrontController@about')->name('front.about');
 
 Route::get('/restroblog', 'App\Http\Controllers\front\FrontController@blog')->name('front.blog');
 
 Route::get('/restroblog/{id}', 'App\Http\Controllers\front\FrontController@blog_detail')->name('front.blog_detail');
+
+Route::resource('contact','App\Http\Controllers\ContactController');
+Route::resource('comment','App\Http\Controllers\BlogCommentController');
+Route::resource('subscription','App\Http\Controllers\SubscriptionController');
+
+
+
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -64,9 +69,7 @@ Route::resource('blog','App\Http\Controllers\BlogController');
 Route::get('blogbin','App\Http\Controllers\BlogController@binindex')->name('blog.bin');
 Route::get('blog/{id}/restore','App\Http\Controllers\BlogController@restore')->name('blog.restore');
 
-Route::resource('contact','App\Http\Controllers\ContactController');
-Route::resource('comment','App\Http\Controllers\BlogCommentController');
-Route::resource('subscription','App\Http\Controllers\SubscriptionController');
+
 
 Route::resource('menucategory','App\Http\Controllers\MenuCategoryController');
 Route::get('menucategorybin','App\Http\Controllers\MenuCategoryController@binindex')->name('menucategory.bin');

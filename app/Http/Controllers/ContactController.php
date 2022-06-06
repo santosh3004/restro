@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\FileManager;
 use Illuminate\Http\Request;
 
 class ContactController extends Controller
@@ -14,7 +15,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contact=FileManager::where([['title','Contact'],['deleted_at',null],['status',1]])->get();
+        return view('front.contact',compact('contact'));
     }
 
     /**
@@ -35,7 +37,13 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $contact = new Contact();
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+        $contact->save();
+        return redirect()->back()->with('message', 'Your message has been sent successfully.');
     }
 
     /**

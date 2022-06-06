@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use App\Models\BlogCategory;
 use App\Models\FileManager;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
+use App\Models\Page;
 use App\Models\Reservation;
 use App\Models\Review;
 use App\Models\Slider;
+use App\Models\Team;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
@@ -18,7 +22,8 @@ class FrontController extends Controller
         $menuitems=MenuItem::where([['deleted_at',null],['status',1]])->get();
         $menucategories=MenuCategory::where([['deleted_at',null],['status',1]])->get();
         $reviews=Review::where([['deleted_at',null],['status',1]])->get();
-        return view('front.index',compact('sliders','menuitems','menucategories','reviews'));
+        $reservation=FileManager::where([['title','Reservation'],['deleted_at',null],['status',1]])->get();
+        return view('front.index',compact('sliders','menuitems','menucategories','reviews','reservation'));
     }
 
 
@@ -50,18 +55,17 @@ class FrontController extends Controller
 
         return redirect()->back()->with('message', 'Your reservation has been sent successfully.');
     }
-    public function contact(){
-        $contact=FileManager::where([['title','Contact'],['deleted_at',null],['status',1]])->get();
-        return view('front.contact',compact('contact'));
-    }
-
 
     public function about(){
-        return view('front.about');
+        $pages=Page::where([['deleted_at',null],['status',1]])->get();
+        $teams=Team::where([['deleted_at',null],['status',1]])->get();
+        return view('front.about',compact('pages','teams'));
     }
 
     public function blog(){
-        return view('front.blog');
+        $blogs=Blog::where([['deleted_at',null],['status',1]])->get();
+        $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
+        return view('front.blog',compact('blogs','blog_categories'));
     }
 
     public function blog_detail($blogid){
