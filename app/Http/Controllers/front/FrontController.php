@@ -5,6 +5,7 @@ namespace App\Http\Controllers\front;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\BlogComment;
 use App\Models\FileManager;
 use App\Models\MenuCategory;
 use App\Models\MenuItem;
@@ -59,16 +60,24 @@ class FrontController extends Controller
     public function about(){
         $pages=Page::where([['deleted_at',null],['status',1]])->get();
         $teams=Team::where([['deleted_at',null],['status',1]])->get();
-        return view('front.about',compact('pages','teams'));
+        $aboutBG=FileManager::where([['deleted_at',null],['status',1],['title','About Us']])->get();
+        return view('front.about',compact('pages','teams','aboutBG'));
     }
 
     public function blog(){
         $blogs=Blog::where([['deleted_at',null],['status',1]])->get();
         $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
-        return view('front.blog',compact('blogs','blog_categories'));
+        $blogpagebg=FileManager::where([['deleted_at',null],['status',1],['title','Blog']])->get();
+        return view('front.blog',compact('blogs','blog_categories','blogpagebg'));
     }
 
     public function blog_detail($blogid){
-        return view('front.blog_details');
+        $blog=Blog::where([['deleted_at',null],['status',1],['id',$blogid]])->first();
+        $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
+        $comments=BlogComment::where([['deleted_at',null],['status',1],['blog_id',$blogid]])->get();
+        if($blog==null){
+            return redirect()->route('front.blog')->with('message','Blog not found');
+        }
+        return view('front.blog_details',compact('blog','blog_categories','comments'));
     }
 }

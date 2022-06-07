@@ -16,6 +16,9 @@
 
 </head>
 <body>
+    @php
+    $menus=App\Models\Menu::where('status', 1)->get();
+    @endphp
 	<!-- Container -->
 	<div id="container">
 		<!-- Header
@@ -35,19 +38,22 @@
 
 					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav m-auto">
-							<li class="drop-link">
-								<a class="active" href="{{route('front.index')}}">Home</a>
+							{{-- <li class="drop-link">
+								<a class=
+                                "@if(Route::current()->getName()=='front.index')
+                                    {{'active'}}
+                                @endif
+                                " href="{{route('front.index')}}">Home</a>
+							</li> --}}
+                            @foreach ($menus as $menu)
+                            <li class="drop-link">
+								<a class=
+                                "@if(Route::current()->getName()==$menu->link)
+                                    {{'active'}}
+                                @endif
+                                " href="{{route($menu->link)}}">{{$menu->title}}</a>
 							</li>
-							<li class="drop-link">
-								<a href="{{route('front.menu')}}">Menu</a>
-							</li>
-							<li class="drop-link">
-                                <a href="{{route('front.about')}}">About</a>
-                            </li>
-							<li class="drop-link"><a href="{{route('front.blog')}}">Blogs</a>
-							</li>
-							<li class="drop-link"><a href="{{route('contact.index')}}">Contact</a>
-							</li>
+                            @endforeach
 						</ul>
 					</div>
 					<a href="{{route('front.reservation')}}" class="button-one">Book a Table</a>

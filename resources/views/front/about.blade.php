@@ -7,7 +7,8 @@
 
 		<!-- page-banner-section
 			================================================== -->
-            <section class="page-banner-section">
+            <section class="page-banner-section" style="background: #111 url({{asset('uploads/files/'.$aboutBG[0]->link)}}) center center no-repeat;
+                background-size: cover;">
                 <div class="container">
                     <h1>About Us</h1>
                     <span>get to know more about our bistro</span>

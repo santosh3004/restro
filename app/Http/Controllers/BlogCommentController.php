@@ -35,7 +35,13 @@ class BlogCommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $blogcomment = new BlogComment();
+        $blogcomment->blog_id = $request->blog_id;
+        $blogcomment->name = $request->name;
+        $blogcomment->email = $request->email;
+        $blogcomment->comment = $request->comment;
+        $blogcomment->save();
+        return redirect()->back()->with('message', 'Your comment has been sent successfully.');
     }
 
     /**

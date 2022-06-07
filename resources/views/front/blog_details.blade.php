@@ -4,12 +4,17 @@
 <!-- page-ban-list -->
 <div class="container marg-top">
     <ul class="page-ban-list">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="blog.html">Our News</a></li>
+        <li><a href="{{route('front.index')}}">Home</a></li>
+        <li><a href="{{route('front.blog')}}">Our Blogs</a></li>
     </ul>
 </div>
 <!-- end page-ban-list -->
-
+{{--session message message--}}
+@if(session('message'))
+    <div class="alert alert-warning">
+        {{session('message')}}
+    </div>
+@endif
 
 <!-- news-section
     ================================================== -->
@@ -21,30 +26,28 @@
 
                     <!-- single post  -->
                     <div class="single-post">
-                        <img src="upload/blog/single.jpg" alt="">
+                        <img src="{{asset('uploads/files/'.$blog->image)}}" alt="">
                         <div class="post-content">
                             <p class="auth-paragraph">
-                                24.04.2020 / <a href="single-post.html">2 Comments</a>
+                                {{$blog->created_at}} | <a href="single-post.html">@if ($comments!=null)
+                                    {{$comments->count()}} @if ($comments->count()==1)
+                                    Comment
+                                    @else
+                                    Comments
+                                    @endif
+
+                                @endif</a>
                             </p>
-                            <h2>Cras iaculis ultricies nulla.</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus hendrerit.
-                                Pellentesque aliquet nibh nec urna. In nisi neque, aliquet vel, dapibus id, mattis vel, nisi.
-                                Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc
-                                tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti.
-                            </p>
-                            <p>Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue.
-                                Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.
-                                Praesent elementum hendrerit tortor. Sed semper lorem at felis.
-                                Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.
-                                Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
-                            <blockquote>
+                            <h2>{{$blog->title}}</h2>
+                            <p>{{$blog->content}}</p>
+                            {{-- <blockquote>
                                 <p>Mauris nibh felis, adipiscing varius, adipiscing in, lacinia vel, tellus. Suspendisse ac urna. </p>
                             </blockquote>
                             <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget blandit nunc
                                 tortor eu nibh. Nullam mollis. Ut justo. Suspendisse potenti. Sed egestas, ante et vulputate
                                 volutpat, eros pede semper est, vitae luctus metus libero eu augue.
-                                Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.</p>
-                            <div class="row">
+                                Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus.</p> --}}
+                            {{-- <div class="row">
                                 <div class="col-sm-6">
                                     <img src="upload/blog/single2.jpg" alt="">
                                 </div>
@@ -56,7 +59,7 @@
                                 vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing,
                                 commodo quis, gravida id, est. Sed lectus. Praesent elementum hendrerit tortor. Sed semper lorem at felis.
                                 Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl.
-                            </p>
+                            </p>--}}
                             <div class="row">
                                 <div class="col-md-6">
                                     <p class="single-post__tags">
@@ -107,52 +110,51 @@
 
                     <!-- comments area box -->
                     <div class="comment-area-box">
-                        <h3>2 Comments</h3>
+                        <h3>@if ($comments!=null)
+                            {{$comments->count()}} @if ($comments->count()==1)
+                                Comment
+                                @else
+                                Comments
+                            @endif
+
+                        @endif </h3>
                         <ul class="comment-tree">
+                            @foreach ($comments as $comment)
+
+
                             <li>
                                 <div class="comment-box">
                                     <img alt="" src="upload/blog/avatar1.jpg">
                                     <div class="comment-content">
-                                        <h4>Philip W</h4>
+                                        <h4>{{$comment->name}}</h4>
                                         <a href="#"><i class="fa fa-mail-reply"></i>Reply</a>
-                                        <span class="date-comm">Posted October 7, 2018 |</span>
-                                        <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. </p>
+                                        <span class="date-comm">Posted {{$comment->created_at}}</span>
+                                        <p>{{$comment->comment}}</p>
                                     </div>
                                 </div>
                             </li>
-                            <li>
-                                <div class="comment-box">
-                                    <img alt="" src="upload/blog/avatar2.jpg">
-                                    <div class="comment-content">
-                                        <h4>John Doe</h4>
-                                        <a href="#"><i class="fa fa-mail-reply"></i>Reply</a>
-                                        <span class="date-comm">Posted October 7, 2018 |</span>
-                                        <p>Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. </p>
-                                    </div>
-                                </div>
-                            </li>
-
+                            @endforeach
                         </ul>
                     </div>
                     <!-- end comments area box -->
 
                     <!-- Contact form module -->
-                    <form class="contact-form" id="comment-form">
-
+                    <form action="{{route('comment.store')}}" method="POST" enctype="multipart/form-data" class="contact-form" id="contact-form">
+@csrf
                         <h3>
                             Add a Comment
                         </h3>
-
+                        <input type="hidden" value="{{$blog->id}}" name="blog_id">
                         <div class="row">
                             <div class="col-md-6">
                                 <input class="contact-form__input-text" type="text" name="name" id="name" placeholder="your name" />
                             </div>
                             <div class="col-md-6">
-                                <input class="contact-form__input-text" type="text" name="mail" id="mail" placeholder="your email address" />
+                                <input class="contact-form__input-text" type="text" name="email" id="mail" placeholder="your email address" />
                             </div>
                         </div>
                         <textarea class="contact-form__textarea" name="comment" id="comment" placeholder="write your comment"></textarea>
-                        <input class="contact-form__submit" type="submit" name="submit-contact" id="submit_contact" value="Post Comment" />
+                        <input type="submit" value="Post Comment" />
                     </form>
                     <!-- End Contact form module -->
 
@@ -173,10 +175,6 @@
                         <h3>Categories</h3>
                         <ul class="category-list">
                             <li><a href="blog.html">Company <span>3</span></a></li>
-                            <li><a href="blog.html">Market Research <span>3</span></a></li>
-                            <li><a href="blog.html">Sales Services <span>2</span></a></li>
-                            <li><a href="blog.html">Manage Business <span>1</span></a></li>
-                            <li><a href="blog.html">Creativity <span>1</span></a></li>
                         </ul>
                     </div>
                       <div class="popular-widget widget">

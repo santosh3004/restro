@@ -2,10 +2,11 @@
         @section('content')
         <!-- page-banner-section
 			================================================== -->
-            <section class="page-banner-section">
+            <section class="page-banner-section" style="background: #111 url({{asset('uploads/files/'.$blogpagebg[0]->link)}}) center center no-repeat;
+                background-size: cover;">
                 <div class="container">
                     <h1>Our Blogs</h1>
-                    <span>our news and events</span>
+                    <span>Our News and Events</span>
                 </div>
             </section>
             <!-- End page-banner section -->
@@ -18,6 +19,12 @@
                 </ul>
             </div>
             <!-- end page-ban-list -->
+{{--show session message--}}
+@if(session('message'))
+    <div class="alert alert-warning">
+        {{session('message')}}
+    </div>
+@endif
 
 
             <!-- news-section
@@ -33,11 +40,18 @@
                                         <div class="news-post">
                                             <img src="{{asset('uploads/files/'.$blog->image)}}" alt="">
                                             <div class="news-content">
-                                                <h3><a href="single-post.html">{{$blog->title}}</a></h3>
+                                                <h3><a href="{{route('front.blog_detail',$blog->id)}}">{{$blog->title}}</a></h3>
                                                 <span class="category">{{$blog->blog_category()->first()->title}}</span>
                                                 <p>{{$blog->content}}</p>
                                                 <p class="auth-paragraph">
-                                                    {{$blog->created_at}}<a href="single-post.html">2 comments</a>
+                                                    {{$blog->created_at}}<a href="single-post.html">
+                                                        {{count($blog->blog_comments()->get()) }}
+@if(count($blog->blog_comments()->get())>1)
+                                                        Comments
+@else
+                                                        Comment
+@endif
+                                                    </a>
                                                 </p>
                                             </div>
                                         </div>

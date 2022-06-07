@@ -2,7 +2,9 @@
 			================================================== -->
 		<footer>
 			<div class="container">
-
+                @php
+                $site_config=App\Models\SiteConfig::where('status', 1)->get();
+                @endphp
 				<div class="up-footer">
 					<div class="row">
 
@@ -11,12 +13,11 @@
 								<a href="index.html">
 									<img src="{{asset('front/images/logo.png')}}" alt="">
 								</a>
-								<p>Donec nec justo eget felis facilisis fermentum.
-									Aliquam porttitor mauris sit amet orci. Aenean dignissim pellente squefelis.</p>
+								<p>@if(isset($site_config->where('sitekey', 'about')->first()->sitevalue)){!!$site_config->where('sitekey', 'about')->first()->sitevalue!!}@endif</p>
 								<ul class="social-list">
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+									<li><a target="_blank" href="@if(isset($site_config->where('sitekey', 'fb_link')->first()->sitevalue)){!!$site_config->where('sitekey', 'fb_link')->first()->sitevalue!!}@endif"><i class="fa fa-facebook"></i></a></li>
+									<li><a target="_blank" href="@if(isset($site_config->where('sitekey', 'twi_link')->first()->sitevalue)){!!$site_config->where('sitekey', 'twi_link')->first()->sitevalue!!}@endif"><i class="fa fa-twitter"></i></a></li>
+									<li><a target="_blank" href="@if(isset($site_config->where('sitekey', 'ins_link')->first()->sitevalue)){!!$site_config->where('sitekey', 'ins_link')->first()->sitevalue!!}@endif"><i class="fa fa-instagram"></i></a></li>
 								</ul>
 							</div>
 						</div>
@@ -24,7 +25,7 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="footer-widget newsletter-widget">
 								<h3>Newsletter</h3>
-								<p>Morbi in sem quis dui placerat ornare. Pellentesque odionisi euismod in pharetra</p>
+								<p>@if(isset($site_config->where('sitekey', 'newsletter')->first()->sitevalue)){!!$site_config->where('sitekey', 'newsletter')->first()->sitevalue!!}@endif</p>
 								<form action="{{route('subscription.store')}}" method="POST" enctype="multipart/form-data" class="subscribe-form">
                                     @csrf
 									<input type="email" name="email" id="email2" placeholder="enter your email"/>
@@ -36,16 +37,16 @@
 						<div class="col-lg-4 col-md-6">
 							<div class="footer-widget contact-widget">
 								<h3>How To Find Us</h3>
-								<p><i class="fa fa-map-marker"></i>Avenue Marina 34568 NY (U.S)</p>
-								<p><i class="fa fa-phone"></i>+0987 193-34-76</p>
-								<p><i class="fa fa-envelope"></i>statumsupport@mail.com</p>
+								<p><i class="fa fa-map-marker"></i>@if(isset($site_config->where('sitekey', 'address')->first()->sitevalue)){!!$site_config->where('sitekey', 'address')->first()->sitevalue!!}@endif</p>
+								<p><i class="fa fa-phone"></i>@if(isset($site_config->where('sitekey', 'phone')->first()->sitevalue)){!!$site_config->where('sitekey', 'phone')->first()->sitevalue!!}@endif</p>
+								<p><i class="fa fa-envelope"></i>@if(isset($site_config->where('sitekey', 'email')->first()->sitevalue)){!!$site_config->where('sitekey', 'email')->first()->sitevalue!!}@endif</p>
 							</div>
 						</div>
 
 					</div>
 				</div>
 
-				<p class="copyright-line">Copyright &copy; 2020 Koad Bistro. All rights reserved.</p>
+				<p class="copyright-line">@if(isset($site_config->where('sitekey', 'footerline')->first()->sitevalue)){!!$site_config->where('sitekey', 'footerline')->first()->sitevalue!!}@endif</p>
 				<a href="#" class="go-top">Back To Top</a>
 
 			</div>

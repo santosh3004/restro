@@ -2,14 +2,17 @@
 @section('content')
     <!-- page-banner-section
        ================================================== -->
-    <section class="page-banner-section">
+    <section class="page-banner-section" style="background: #111 url({{asset('uploads/files/'.$contact[0]->link)}}) center center no-repeat;
+        background-size: cover;">
         <div class="container">
             <h1>Contacts</h1>
             <span>Get in touch</span>
         </div>
     </section>
     <!-- End page-banner section -->
-
+    @php
+    $site_config=App\Models\SiteConfig::where('status', 1)->get();
+    @endphp
     <!-- page-ban-list -->
     <div class="container">
         <ul class="page-ban-list">
@@ -37,9 +40,11 @@
                             <div class="info-line">
                                 <i class="fa fa-clock-o"></i>
                                 <p>
-                                    <span>Monday - Thursday:</span> 08AM - 10PM <br>
-                                    <span>Friday - Saturday:</span> 10AM - 11:30PM <br>
-                                    <span>Sunday:</span> 1PM - 10PM
+                                    @if(($site_config->where('sitekey', 'Opening Hour')->all())!=null)@foreach ($site_config->where('sitekey', 'Opening Hour')->all() as $oh)
+                                        {{$oh->sitevalue}}
+                                </br>
+                                    @endforeach
+                                    @endif
                                 </p>
                             </div>
                             <div class="info-line">
@@ -51,9 +56,9 @@
                         </div>
                         <div class="contact-info">
                             <h3>Contact Info</h3>
-                            <p><i class="fa fa-map-marker"></i>Avenue Marina 34568 NY (U.S)</p>
-                            <p><i class="fa fa-phone"></i>+0987 193-34-76</p>
-                            <p><i class="fa fa-envelope"></i>infosupport@mail.com</p>
+                            <p><i class="fa fa-map-marker"></i>@if(isset($site_config->where('sitekey', 'address')->first()->sitevalue)){!!$site_config->where('sitekey', 'address')->first()->sitevalue!!}@endif</p>
+                            <p><i class="fa fa-phone"></i>@if(isset($site_config->where('sitekey', 'phone')->first()->sitevalue)){!!$site_config->where('sitekey', 'phone')->first()->sitevalue!!}@endif</p>
+                            <p><i class="fa fa-envelope"></i>@if(isset($site_config->where('sitekey', 'email')->first()->sitevalue)){!!$site_config->where('sitekey', 'email')->first()->sitevalue!!}@endif</p>
                         </div>
                     </div>
                     <div class="col-md-7">

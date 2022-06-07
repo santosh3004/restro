@@ -91,7 +91,7 @@
 
 <!-- banner-section
     ================================================== -->
-<section class="banner-section">
+{{-- <section class="banner-section">
     <div class="container">
         <div class="banner-box">
             <h3>Best Dish Of The Day</h3>
@@ -103,7 +103,7 @@
             <a href="menu.html" class="button-two">Add To Cart</a>
         </div>
     </div>
-</section>
+</section> --}}
 <!-- End banner section -->
 
 <!-- popular-menu-section
