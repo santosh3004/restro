@@ -34,11 +34,13 @@
 
                     <div class="about-box">
                         <div class="row">
+                            @if ($loop->iteration%2!=0)
                             <div class="col-md-6">
                                 <div class="image-holder">
                                     <img src="{{asset('uploads/files/'.$page->image)}}" alt="">
                                 </div>
                             </div>
+                            @endif
                             <div class="col-md-6">
                                 <div class="content-holder">
                                     <h2>{{$page->title}}</h2>
@@ -49,6 +51,13 @@
                                     <img src="images/signature.png" alt="">
                                 </div>
                             </div>
+                            @if ($loop->iteration%2==0)
+                            <div class="col-md-6">
+                                <div class="image-holder">
+                                    <img src="{{asset('uploads/files/'.$page->image)}}" alt="">
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                     @endforeach

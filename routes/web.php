@@ -26,6 +26,7 @@ Route::post('restroreserve', 'App\Http\Controllers\front\FrontController@reserve
 Route::get('/restroabout', 'App\Http\Controllers\front\FrontController@about')->name('front.about');
 
 Route::get('/restroblog', 'App\Http\Controllers\front\FrontController@blog')->name('front.blog');
+Route::get('/restroblog/cat/{cat}', 'App\Http\Controllers\front\FrontController@catblog')->name('front.catblog');
 
 Route::get('/restroblog/{id}', 'App\Http\Controllers\front\FrontController@blog_detail')->name('front.blog_detail');
 

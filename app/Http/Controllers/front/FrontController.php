@@ -65,19 +65,30 @@ class FrontController extends Controller
     }
 
     public function blog(){
-        $blogs=Blog::where([['deleted_at',null],['status',1]])->get();
+        $blogs=Blog::where([['deleted_at',null],['status',1]])->paginate(2);
         $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
         $blogpagebg=FileManager::where([['deleted_at',null],['status',1],['title','Blog']])->get();
-        return view('front.blog',compact('blogs','blog_categories','blogpagebg'));
+        $popular_blogs=Blog::where([['deleted_at',null],['status',1]])->orderByViews()->take(2)->get();
+        return view('front.blog',compact('blogs','blog_categories','blogpagebg','popular_blogs'));
     }
 
     public function blog_detail($blogid){
         $blog=Blog::where([['deleted_at',null],['status',1],['id',$blogid]])->first();
         $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
         $comments=BlogComment::where([['deleted_at',null],['status',1],['blog_id',$blogid]])->get();
+        $popular_blogs=Blog::where([['deleted_at',null],['status',1]])->orderByViews()->take(2)->get();
+        views($blog)->record();
         if($blog==null){
             return redirect()->route('front.blog')->with('message','Blog not found');
         }
-        return view('front.blog_details',compact('blog','blog_categories','comments'));
+        return view('front.blog_details',compact('blog','blog_categories','comments','popular_blogs'));
+    }
+
+    public function catblog($cat){
+        $blogs=Blog::where([['deleted_at',null],['status',1],['blog_category_id',$cat]])->paginate(2);
+        $blog_categories=BlogCategory::where([['deleted_at',null],['status',1]])->get();
+        $blogpagebg=FileManager::where([['deleted_at',null],['status',1],['title','Blog']])->get();
+        $popular_blogs=Blog::where([['deleted_at',null],['status',1]])->orderByViews()->take(2)->get();
+        return view('front.blog',compact('blogs','blog_categories','blogpagebg','popular_blogs'));
     }
 }

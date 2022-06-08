@@ -138,6 +138,32 @@
                     </div>
                     <!-- end comments area box -->
 
+
+                    <!-- Start comments area box disqus-->
+
+                    <div id="disqus_thread"></div>
+                    <script>
+                        /**
+                        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+/*
+                        var disqus_config = function () {
+                        this.page.url = 'http://example.com';  // Replace PAGE_URL with your page's canonical URL variable
+                        this.page.identifier = 'example-com-yboy4m9rak'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                        };
+                        */
+
+                        (function() { // DON'T EDIT BELOW THIS LINE
+                        var d = document, s = d.createElement('script');
+                        s.src = 'https://example-com-yboy4m9rak.disqus.com/embed.js';
+                        s.setAttribute('data-timestamp', +new Date());
+                        (d.head || d.body).appendChild(s);
+                        })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+                    <!-- end comments area box disqus-->
+
                     <!-- Contact form module -->
                     <form action="{{route('comment.store')}}" method="POST" enctype="multipart/form-data" class="contact-form" id="contact-form">
 @csrf
@@ -174,40 +200,23 @@
                       <div class="category-widget widget">
                         <h3>Categories</h3>
                         <ul class="category-list">
-                            <li><a href="blog.html">Company <span>3</span></a></li>
+                            @foreach ($blog_categories as $blog_category)
+      <li><a href="{{route('front.catblog',$blog_category->id)}}">{{ $blog_category->title }} <span>3</span></a></li>
+      @endforeach
                         </ul>
                     </div>
                       <div class="popular-widget widget">
                         <h3>Popular Posts</h3>
                         <ul class="popular-list">
+                            @foreach ($popular_blogs as $popular_blog)
                             <li>
-                                <img alt="" src="upload/blog/th1.jpg">
+                                <img alt="" src="{{asset('uploads/files/'.$popular_blog->image)}}">
                                 <div class="side-content">
-                                    <h4><a href="single-post.html">Aliquam tincidunt mauris eu risus.</a></h4>
-                                    <span>21.04.2020</span>
+                                    <h4><a href="{{route('front.blog_detail',$popular_blog->id)}}">{{$popular_blog->title}}</a></h4>
+                                    <span>{{$popular_blog->created_at->format('Y-M-D')}}</span>
                                 </div>
                             </li>
-                            <li>
-                                <img alt="" src="upload/blog/th2.jpg">
-                                <div class="side-content">
-                                    <h4><a href="single-post.html">Donec quis dui at dolor tempor interdum.</a></h4>
-                                    <span>21.04.2020</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="upload/blog/th3.jpg">
-                                <div class="side-content">
-                                    <h4><a href="single-post.html">Vivamus molestie gravida turpis.</a></h4>
-                                    <span>21.04.2020</span>
-                                </div>
-                            </li>
-                            <li>
-                                <img alt="" src="upload/blog/th4.jpg">
-                                <div class="side-content">
-                                    <h4><a href="single-post.html">Fusce lobortis lorem at ipsum semper sagittis.</a></h4>
-                                    <span>21.04.2020</span>
-                                </div>
-                            </li>
+                            @endforeach
                         </ul>
                     </div>
                 </div>

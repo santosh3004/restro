@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
 
-class Blog extends Model
+class Blog extends Model implements Viewable
 {
-    use HasFactory;use SoftDeletes;
+    use HasFactory;use SoftDeletes;use InteractsWithViews;
     protected $fillable = ['title', 'slug', 'image', 'content', 'blog_category_id', 'status'];
 
 

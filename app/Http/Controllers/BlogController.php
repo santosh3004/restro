@@ -71,7 +71,7 @@ class BlogController extends Controller
      */
     public function edit($blog)
     {
-        $blog = Blog::find($blog)->first();
+        $blog = Blog::find($blog);
         $blog_category = new BlogCategory;
         $blog_category = $blog_category->get();
         return view('admin.blog.edit', compact('blog', 'blog_category'));

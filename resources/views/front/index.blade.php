@@ -179,13 +179,12 @@
 
 <!-- banner-section
     ================================================== -->
-<section class="banner-section2" style="background: #111 url({{asset('uploads/files/'.$reservation[0]->link)}}) center center no-repeat;
-    background-size: cover;">
-    <div class="container">
+<section class="banner-section2" style="background:  url({{asset('uploads/files/'.$reservation[0]->link)}}) center center no-repeat;
+    background-size: cover; padding:0;">
+    <div style="margin: auto auto; padding:10vh;background-color:rgba(0,0,0,0.5)">
         <div class="banner-box">
             <h2>Book a Table</h2>
-            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sedolorm reminusto
-                doeiusmod tempor condorico consectetur adipiscing elitut aliquip.</h3>
+            <h3>Book a table for the fast service on reaching to the place.</h3>
             <a href="{{route('front.reservation')}}" class="button-two">Reservation</a>
         </div>
     </div>
@@ -199,11 +198,13 @@
         <div class="container">
             @foreach ($menucategories as $menucategory)
             <div class="row align-items-center">
+                @if ($loop->iteration%2!=0)
                 <div class="col-lg-5 col-md-6">
                     <div class="image-holder">
                         <img style="height: 60;width:50;" src="uploads/files/{{$menucategory->image}}" alt="">
                     </div>
                 </div>
+                @endif
                 <div class="col-lg-6 offset-lg-1 col-md-6">
                     <div class="menu-holder">
                         <h2>{{$menucategory->title}}</h2>
@@ -227,6 +228,13 @@
                         </ul>
                     </div>
                 </div>
+                @if ($loop->iteration%2==0)
+                <div class="col-lg-5 col-md-6">
+                    <div class="image-holder">
+                        <img style="height: 60;width:50;" src="uploads/files/{{$menucategory->image}}" alt="">
+                    </div>
+                </div>
+                @endif
             </div>
             <div style="height: 50px">
 
