@@ -11,7 +11,7 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <i class="fas fa-user text-white" style="font-size:30px;margin-left:15px;"></i>
         <div class="info">
-          <a href="#" class="d-block" style="font-size:20px;">Alexander Pierce</a>
+          <a href="dashboard" class="d-block" style="font-size:20px;">Alexander Pierce</a>
         </div>
       </div>
 
@@ -44,7 +44,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
+            <a href="dashboard" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Dashboard

@@ -39,7 +39,7 @@ Route::resource('subscription','App\Http\Controllers\SubscriptionController');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
-});
+})->name('admin.dashboard');
 
 Route::resource('user','App\Http\Controllers\UserController');
 Route::get('userbin','App\Http\Controllers\UserController@binindex')->name('user.bin');

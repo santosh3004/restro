@@ -1,7 +1,10 @@
 
+ @php
+ $site_config=App\Models\SiteConfig::where('status', 1)->get();
+ @endphp
+
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2021 <a href="#">Restro</a>.</strong>
-    All rights reserved.
+    <strong>@if(isset($site_config->where('sitekey', 'footerline')->first()->sitevalue)){!!$site_config->where('sitekey', 'footerline')->first()->sitevalue!!}@endif
     <div class="float-right d-none d-sm-inline-block">
       <b>Version</b> 1.0.0
     </div>
