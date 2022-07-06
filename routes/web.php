@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,22 +15,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('front.index');
-// });
 Route::get('/', 'App\Http\Controllers\front\FrontController@index')->name('front.index');
 
-Route::get('/restromenu', 'App\Http\Controllers\front\FrontController@menu')->name('front.menu');
+Route::get('restromenu', 'App\Http\Controllers\front\FrontController@menu')->name('front.menu');
 Route::get('restroreservation', 'App\Http\Controllers\front\FrontController@reservation')->name('front.reservation');
 
 Route::post('restroreserve', 'App\Http\Controllers\front\FrontController@reserve')->name('front.reserve');
 
-Route::get('/restroabout', 'App\Http\Controllers\front\FrontController@about')->name('front.about');
+Route::get('restroabout', 'App\Http\Controllers\front\FrontController@about')->name('front.about');
 
-Route::get('/restroblog', 'App\Http\Controllers\front\FrontController@blog')->name('front.blog');
-Route::get('/restroblog/cat/{cat}', 'App\Http\Controllers\front\FrontController@catblog')->name('front.catblog');
+Route::get('restroblog', 'App\Http\Controllers\front\FrontController@blog')->name('front.blog');
+Route::get('restroblog/cat/{cat}', 'App\Http\Controllers\front\FrontController@catblog')->name('front.catblog');
 
-Route::get('/restroblog/{id}', 'App\Http\Controllers\front\FrontController@blog_detail')->name('front.blog_detail');
+Route::get('restroblog/{id}', 'App\Http\Controllers\front\FrontController@blog_detail')->name('front.blog_detail');
 
 Route::resource('contact','App\Http\Controllers\ContactController');
 Route::resource('comment','App\Http\Controllers\BlogCommentController');
@@ -37,10 +36,11 @@ Route::resource('subscription','App\Http\Controllers\SubscriptionController');
 
 
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->name('admin.dashboard');
 
+Route::group(['middleware'=>'auth'],function(){
+    Route::get('dashboard', function () {
+        return view('admin.dashboard');
+    })->name('admin.dashboard');
 Route::resource('user','App\Http\Controllers\UserController');
 Route::get('userbin','App\Http\Controllers\UserController@binindex')->name('user.bin');
 Route::get('user/{id}/restore','App\Http\Controllers\UserController@restore')->name('user.restore');
@@ -93,5 +93,9 @@ Route::resource('review','App\Http\Controllers\ReviewController');
 Route::resource('team','App\Http\Controllers\TeamController');
 Route::get('teambin','App\Http\Controllers\TeamController@binindex')->name('team.bin');
 Route::get('team/{id}/restore','App\Http\Controllers\TeamController@restore')->name('team.restore');
+});
 
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

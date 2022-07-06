@@ -31,6 +31,15 @@
         </div>
       </li>
       <li class="nav-item">
+        <a name="" id="" class="btn btn-secondary" href="{{ route('logout') }}" onclick="event.preventDefault();
+            document.getElementById('logout-form').submit();" role="button">
+                Logout
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+            </form>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>

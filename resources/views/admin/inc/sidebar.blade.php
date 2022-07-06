@@ -11,20 +11,12 @@
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <i class="fas fa-user text-white" style="font-size:30px;margin-left:15px;"></i>
         <div class="info">
-          <a href="dashboard" class="d-block" style="font-size:20px;">Alexander Pierce</a>
+          <a href="dashboard" class="d-block" style="font-size:20px;">{{Auth::user()->name}}</a>
         </div>
       </div>
 
 
-        <div class="row mt-1 mb-1 ml-5">
-            {{-- <a name="" id="" class="btn btn-secondary" href="{{ route('logout') }}" onclick="event.preventDefault();
-            document.getElementById('logout-form').submit();" role="button">
-                Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-            </form> --}}
-        </div>
+        
 
       <!-- SidebarSearch Form -->
       <div class="form-inline">
